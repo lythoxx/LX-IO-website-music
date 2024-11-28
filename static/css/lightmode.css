@@ -1,0 +1,71 @@
+body.lightmode {
+    background-color: #fff3f3 !important;
+}
+
+body.lightmode,
+body.lightmode #dismiss,
+body.lightmode form h2,
+body.lightmode .form-floating input:focus, body.lightmode .form-floating textarea:focus,
+body.lightmode .form-floating input, body.lightmode .form-floating textarea,
+body.lightmode label,
+body.lightmode .bi::before,
+body.lightmode .display-5.fw-bold.text-body-emphasis.lh-1.mb-3,
+body.lightmode .jumbotron .container h1,
+body.lightmode .offcanvas-body .btn-secondary,
+body.lightmode .lead,
+body.lightmode .container u,
+body.lightmode .copyright:hover,
+body.lightmode .nav-link {
+    color: #333 !important;
+}
+
+body.lightmode .dropdown-item .bi::before {
+    color: azure !important;
+}
+
+body.lightmode .inline-link {
+    color: rgb(0, 12, 238) !important;
+}
+
+body.lightmode .btn-secondary {
+    color: azure !important;
+    background-color: #333 !important;
+}
+
+body.lightmode .offcanvas-body div .lead {
+    color: azure !important;
+}
+
+body.lightmode .offcanvas-header {
+    color: azure !important;
+}
+
+body.lightmode .offcanvas-body .btn-secondary {
+    background-color: white !important;
+}
+
+body.lightmode .form-floating input, body.lightmode .form-floating textarea {
+    background-color: rgb(192, 192, 192);
+}
+
+body.lightmode .form-floating input:focus, body.lightmode .form-floating textarea:focus {
+    background-color: #e0e0e0;
+}
+
+
+body.lightmode::-webkit-scrollbar-thumb {
+    background-color: rgb(53, 53, 53); /* Example thumb color */
+}
+
+body.lightmode::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(83, 83, 83); /* Example thumb color on hover */
+}
+
+body.lightmode::-webkit-scrollbar-track {
+    background: #c4b9b9; /* Example track color */
+    border-radius: 0;
+}
+
+body.lightmode .modal-content {
+    background-color: #f8f9fa;
+}

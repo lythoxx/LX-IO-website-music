@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LX-IO | About</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="/static/js/index.js" defer></script>
+    <script src="https://kit.fontawesome.com/cb172610ff.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="icon" href="/static/assets/profile.png">
+    <link rel="stylesheet" href="/static/css/cover.css">
+    <script src="/static/js/dropdown.js" defer></script>
+    <link rel="stylesheet" href="/static/css/lightmode.css">
+    <script src="/static/js/lightmode.js" defer></script>
+</head>
+<body class="d-flex h-100 text-center text-white bg-dark">
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none navbar-brand">
+                <img class="logoCustom" src="/static/assets/vector/default-monochrome-white.svg"
+                    alt="LX-IO Logo" class="d-inline-block align-text-top">
+                <!-- <span class="fs-4">Simple header</span> -->
+            </a>
+
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a class="nav-link" href="/home.html">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link activeCustom">About</a></li>
+                <li class="nav-item"><a href="https://lxio.dev" class="nav-link">Software</a></li>
+                <!-- <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Projects
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-dark border-0 pt-0 mx-0 rounded-3 shadow overflow-hidden" style="width: 280px;">
+                        <form class="p-2 mb-2 bg-dark border-bottom border-dark search-form">
+                            <input type="search" class="form-control form-control-dark search-control" autocomplete="false" placeholder="Type to filter...">
+                        </form>
+                        <ul class="list-unstyled mb-0">
+                            <li class="dropdown-list-item">
+                                <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="/projects/endlessnight.html">
+                                    <i class="bi bi-controller"></i>
+                                    Endless Night
+                                </a>
+                            </li>
+                            <li class="dropdown-list-item">
+                                <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="/projects/legendsofaitera.html">
+                                    <i class="bi bi-joystick"></i>
+                                    Legends of Aitera
+                                </a>
+                            </li>
+                            <li class="dropdown-list-item">
+                                <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="/projects/marcus.html">
+                                    <i class="bi bi-braces"></i>
+                                    Marcus Voice Assistant
+                                </a>
+                            </li>
+                            <li class="dropdown-list-item" style="display: none">
+                                <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="/projects/endlessnightrunner.html">
+                                    <i class="bi bi-person-walking"></i>
+                                    Endless Night: Runner
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="/projects/all.html">
+                                    <i class="bi bi-asterisk"></i>
+                                    All Projects
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li> -->
+            </ul>
+        </header>
+    </div>
+
+    <!-- Modal for cookies -->
+    <div class="modal fade" id="cookieModal" tabindex="-1" aria-labelledby="cookieModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cookieModalLabel">Cookie Notice</h5>
+                </div>
+                <div class="modal-body">
+                    This website uses cookies to ensure you get the best experience on our website. We do not collect any personal data. Neither do we use cookies for tracking purposes or advertisements. Cookies are used to save your preferences and settings. By clicking "Ok" you agree to the use of cookies.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="setCookie('cookieconsent', 'accepted', 30)">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN -->
+    <section id="archivoNarrow">
+        <div class="container col-xxl-8 px-4 py-5">
+            <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+                <div class="col-10 col-sm-8 col-lg-6">
+                    <img src="/static/assets/hoppou.png" class="d-block mx-lg-auto img-fluid rounded page-body" alt="Hoppou profile picture" width="700" height="500" loading="lazy">
+                </div>
+                    <div class="col-lg-6">
+                        <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">About Me</h1>
+                        <p class="lead" id="ageIntro">Hello, I am lythox, the creator of <code>LX-IO</code>. I am a XXX year old student from Germany and I am studying computer science.</p>
+                        <p class="lead">I started programming when I was around 15 years old. During my starting times, I tried a plethora of different languages, such as <code>Python</code>, <code>Java</code>, <code>C++</code>, <code>PHP</code> and <code>JavaScript</code>.</p>
+                        <p class="lead">The only languages that I actively use now are <code>Python</code> and <code>GdScript</code>, as evident from my current projects.</p>
+                        <hr>
+                        <p class="lead">My musical journey started in 8th grade when I joined my school choir. I later started learning electric guitar and composing my own pieces.</p>
+                        <p class="lead">In the future I am also planning to learn the piano.</p>
+                    </div>
+                </div>
+                <a href="/contact.html" class="btn btn-secondary fw-bold">Contact me</a>
+            </div>
+        </div>
+    </section>
+
+<!--
+██╗     ██╗  ██╗     ██╗ ██████╗
+██║     ╚██╗██╔╝     ██║██╔═══██╗
+██║      ╚███╔╝█████╗██║██║   ██║
+██║      ██╔██╗╚════╝██║██║   ██║
+███████╗██╔╝ ██╗     ██║╚██████╔╝
+╚══════╝╚═╝  ╚═╝     ╚═╝ ╚═════╝
+-->
+    <div class="container" id="footer">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-4 d-flex align-items-center">
+                <span class="text-muted user-select-none copyright">&copy; LX-IO 2024</span>
+                <i class="bi bi-moon ms-3" id="darkmodetoggle"></i>
+            </div>
+
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3"><a title="YouTube" href="https://www.youtube.com/channel/UCpkiASKEF8Nty5xQutMnAIw" class="footerItemsCustom socialLink" target="_blank">
+                    <img id="socialLink" src="/static/assets/youtubeLogo.png">
+                </a></li>
+            </ul>
+        </footer>
+    </div>
+</body>
+</html>
