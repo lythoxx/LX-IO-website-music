@@ -184,7 +184,6 @@ a:not(.dropdown-toggle, .socialLink, .forum-link):hover:after {
 
 .card:hover {
     transform: scale(1.05);
-    cursor: pointer;
 }
 
 img.page-body {
