@@ -360,3 +360,13 @@ img.page-body {
     background-color: #4e4e51;
     color: azure;
 }
+
+.controls {
+    position: relative;
+    left: -20px;
+    border: 1px solid azure;
+}
+
+.controls span {
+    padding: 10px;
+}

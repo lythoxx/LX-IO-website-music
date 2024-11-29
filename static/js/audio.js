@@ -1,14 +1,22 @@
-var darkness = document.getElementById('listen-btn-darkness')
-var everending = document.getElementById('toast-btn-everending')
-var current = document.getElementById('toast-btn-current')
-var toastLiveExample = document.getElementById('audio-player')
-var dirbtn = document.getElementById('dir-btn')
-var container = document.getElementById('audio-container')
-var audio = document.getElementById('audio');
+// Used for the audio player
+const darkness = document.getElementById('listen-btn-darkness')
+const everending = document.getElementById('toast-btn-everending')
+const current = document.getElementById('toast-btn-current')
+const toastLiveExample = document.getElementById('audio-player')
+const dirbtn = document.getElementById('dir-btn')
+const repbtn = document.getElementById('rep-btn')
+const container = document.getElementById('audio-container')
+const audio = document.getElementById('audio')
+const ffbtn = document.getElementById('ff-btn')
+const rwbtn = document.getElementById('rew-btn')
+
+// Player variables
+var repeat = localStorage.getItem('repeat') || false
+var seekVal = 10
 
 // Used for the audio player
 function isMobile() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 }
 
 if (isMobile()) {
@@ -56,21 +64,26 @@ if (toastClose) {
         localStorage.removeItem('audioCurrentTime')
         localStorage.removeItem('audioPaused')
         localStorage.removeItem('audioSource')
+        localStorage.removeItem('repeat')
         // remove src
         document.getElementById('audio').src = ''
+        // restore repeat button
+        repeat = false
+        repbtn.classList.remove('bi-repeat-1')
+        repbtn.classList.add('bi-repeat')
     })
 }
 
 document.addEventListener('DOMContentLoaded', function() {
     // Load audio state from localStorage
     if (localStorage.getItem('audioCurrentTime')) {
-        audio.currentTime = localStorage.getItem('audioCurrentTime');
+        audio.currentTime = localStorage.getItem('audioCurrentTime')
     }
     if (localStorage.getItem('audioPaused') === 'false') {
         var toast = new bootstrap.Toast(toastLiveExample)
         toast.show()
-        audio.src = localStorage.getItem('audioSource');
-        audio.play();
+        audio.src = localStorage.getItem('audioSource')
+        audio.play()
     }
     if (localStorage.getItem('audioPosition') === 'start') {
         container.classList.remove('end-0')
@@ -83,20 +96,36 @@ document.addEventListener('DOMContentLoaded', function() {
         dirbtn.classList.remove('bi-caret-right')
         dirbtn.classList.add('bi-caret-left')
     }
+    if (localStorage.getItem('repeat') === 'true') {
+        repeat = true
+        repbtn.classList.remove('bi-repeat')
+        repbtn.classList.add('bi-repeat-1')
+    } else {
+        repeat = false
+        repbtn.classList.remove('bi-repeat-1')
+        repbtn.classList.add('bi-repeat')
+    }
 
     // Save audio state to localStorage
     audio.addEventListener('timeupdate', function() {
-        localStorage.setItem('audioCurrentTime', audio.currentTime);
-    });
+        localStorage.setItem('audioCurrentTime', audio.currentTime)
+    })
 
     audio.addEventListener('play', function() {
-        localStorage.setItem('audioPaused', 'false');
-    });
+        localStorage.setItem('audioPaused', 'false')
+    })
 
     audio.addEventListener('pause', function() {
-        localStorage.setItem('audioPaused', 'true');
-    });
-});
+        localStorage.setItem('audioPaused', 'true')
+    })
+
+    audio.addEventListener('ended', function() {
+        if (repeat) {
+            audio.currentTime = 0
+            audio.play()
+        }
+    })
+})
 
 if (dirbtn) {
     dirbtn.addEventListener('mouseenter', function() {
@@ -131,6 +160,52 @@ if (dirbtn) {
             dirbtn.classList.add('bi-caret-left-fill')
             localStorage.setItem('audioPosition', 'end')
         }
+    })
+}
+
+if (repbtn) {
+    repbtn.addEventListener('click', function() {
+        if (repeat) {
+            repeat = false
+            repbtn.classList.remove('bi-repeat-1')
+            repbtn.classList.add('bi-repeat')
+            localStorage.setItem('repeat', repeat)
+        } else {
+            repeat = true
+            repbtn.classList.remove('bi-repeat')
+            repbtn.classList.add('bi-repeat-1')
+            localStorage.setItem('repeat', repeat)
+        }
+    })
+}
+
+if (ffbtn) {
+    ffbtn.addEventListener('click', function() {
+        audio.currentTime = Math.min(audio.currentTime + seekVal, audio.duration)
+    })
+
+    ffbtn.addEventListener('mouseenter', function() {
+        ffbtn.classList.remove('bi-fast-forward')
+        ffbtn.classList.add('bi-fast-forward-fill')
+    })
+    ffbtn.addEventListener('mouseleave', function() {
+        ffbtn.classList.remove('bi-fast-forward-fill')
+        ffbtn.classList.add('bi-fast-forward')
+    })
+}
+
+if (rwbtn) {
+    rwbtn.addEventListener('click', function() {
+        audio.currentTime = Math.max(audio.currentTime - seekVal, 0)
+    })
+
+    rwbtn.addEventListener('mouseenter', function() {
+        rwbtn.classList.remove('bi-rewind')
+        rwbtn.classList.add('bi-rewind-fill')
+    })
+    rwbtn.addEventListener('mouseleave', function() {
+        rwbtn.classList.remove('bi-rewind-fill')
+        rwbtn.classList.add('bi-rewind')
     })
 }
 
@@ -170,5 +245,18 @@ if ("mediaSession" in navigator) {
                 type: "image/png",
             },
         ],
+    })
+
+    navigator.mediaSession.setActionHandler('play', function() {
+        audio.play();
+    });
+    navigator.mediaSession.setActionHandler('pause', function() {
+        audio.pause();
+    });
+    navigator.mediaSession.setActionHandler('seekbackward', function() {
+        audio.currentTime = Math.max(audio.currentTime - 10, 0);
+    });
+    navigator.mediaSession.setActionHandler('seekforward', function() {
+        audio.currentTime = Math.min(audio.currentTime + 10, audio.duration);
     });
 }
