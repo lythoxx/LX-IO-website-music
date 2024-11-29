@@ -350,3 +350,13 @@ img.page-body {
 .accordion-button::after {
     font-size: 1.5rem; /* Change this to your desired size */
 }
+
+.toast-header {
+    background-color: #4e4e51;
+    color: azure;
+}
+
+.toast-body {
+    background-color: #4e4e51;
+    color: azure;
+}

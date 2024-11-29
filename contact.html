@@ -18,9 +18,9 @@
     <link rel="stylesheet" href="/static/css/form.css">
     <link rel="icon" href="/static/assets/profile.png">
     <link rel="stylesheet" href="/static/css/cover.css">
-    <script src="/static/js/dropdown.js" defer></script>
     <link rel="stylesheet" href="/static/css/lightmode.css">
     <script src="/static/js/lightmode.js" defer></script>
+    <script src="/static/js/audio.js" defer></script>
 </head>
 <body class="d-flex h-100 text-center text-white bg-dark">
     <div class="container">
@@ -65,7 +65,7 @@
                 <input type="hidden" name="accessKey" value="84a1dc88-3687-48e9-9ba9-0e17ef2c9629">
                 <input type="hidden" name="replyTo" value="@">
                 <input type="text" name="honeypot" style="display:none">
-                <input type="hidden" name="redirectTo" value="https://lxio.dev/home.html">
+                <input type="hidden" name="redirectTo" value="https://music.lxio.dev/home.html">
                 <div class="form-floating mb-3">
                     <input class="form-control" id="emailAddress" type="email" name="email" placeholder="Email Address" autocomplete="off" tabindex="1" required/>
                     <label for="emailAddress">Email Address</label>
@@ -91,6 +91,20 @@
                     <button class="btn btn-primary btn-lg fw-bold" id="submitButton" type="submit">Submit</button>
                 </div>
             </form>
+        </div>
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="audio-player" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+                <div class="toast-header">
+                    <img src="/static/assets/cover.png" height="16" width="38" class="rounded me-2" alt="LX-IO">
+                    <strong class="me-auto">Audio Player</strong>
+                    <button id="toast-btn" type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    <audio controls id="audio">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
         </div>
     </section>
 

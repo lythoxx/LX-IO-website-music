@@ -16,9 +16,9 @@
     <link rel="stylesheet" href="/static/css/index.css">
     <link rel="stylesheet" href="/static/css/cover.css">
     <link rel="icon" href="/static/assets/profile.png">
-    <script src="/static/js/dropdown.js" defer></script>
     <link rel="stylesheet" href="/static/css/lightmode.css">
     <script src="/static/js/lightmode.js" defer></script>
+    <script src="/static/js/audio.js" defer></script>
 </head>
 <body class="d-flex h-100 text-center text-white bg-dark">
     <div class="container">
@@ -90,10 +90,7 @@
                             <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold user-select-none">Darkness</h2>
                             <p class="card-text user-select-none">Darkness is a piano piece, which is supposed to reflect sadness and darker emotions through dissonances and unsteady flow.</p>
                             <p class="card-text user-select-none">LISTEN TO THE DEMO:</p>
-                            <audio controls>
-                                <source src="/static/assets/audio/Darkness.mp3" type="audio/mpeg">
-                                Your browser does not support the audio element.
-                            </audio>
+                            <button class="btn btn-lg btn-secondary fw-bold" id="listen-btn-darkness">Listen</button>
                             <ul class="d-flex list-unstyled mt-auto">
                                 <li class="me-auto">
                                     <a href="/about.html" class="no-underline"><img src="/static/assets/hoppou_bg.png" alt="lythox" width="32" height="32" class="rounded-circle border border-white card-icon"></a>
@@ -109,10 +106,7 @@
                             <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold user-select-none">Everending Constant</h2>
                             <p class="card-text user-select-none">Everending Constant is a metal piece which is centered around building tension and fast paced drums.</p>
                             <p class="card-text user-select-none">LISTEN TO THE DEMO:</p>
-                            <audio controls>
-                                <source src="/static/assets/audio/Everending Constant.mp3" type="audio/mpeg">
-                                Your browser does not support the audio element.
-                            </audio>
+                            <button id="toast-btn-everending" class="btn btn-lg btn-secondary fw-bold">Listen</button>
                             <ul class="d-flex list-unstyled mt-auto">
                                 <li class="me-auto">
                                     <a href="/about.html" class="no-underline"><img src="/static/assets/hoppou_bg.png" alt="lythox" width="32" height="32" class="rounded-circle border border-white card-icon"></a>
@@ -128,10 +122,7 @@
                             <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold user-select-none">Through The Current</h2>
                             <p class="card-text user-select-none">Through The Current is a metal piece, based on a steady bass line where the guitar drives the piece.</p>
                             <p class="card-text user-select-none">LISTEN TO THE DEMO:</p>
-                            <audio controls>
-                                <source src="/static/assets/audio/Through The Current.mp3" type="audio/mpeg">
-                                Your browser does not support the audio element.
-                            </audio>
+                            <button id="toast-btn-current" class="btn btn-lg btn-secondary fw-bold">Listen</button>
                             <ul class="d-flex list-unstyled mt-auto">
                                 <li class="me-auto">
                                     <a href="/about.html" class="no-underline"><img src="/static/assets/hoppou_bg.png" alt="lythox" width="32" height="32" class="rounded-circle border border-white card-icon"></a>
@@ -142,6 +133,20 @@
                 </div>
             </div>
             <!-- <a href="/projects/all.html" class="btn btn-lg btn-secondary fw-bold">View all projects</a> -->
+        </div>
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="audio-player" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+                <div class="toast-header">
+                    <img src="/static/assets/cover.png" height="16" width="38" class="rounded me-2" alt="LX-IO">
+                    <strong class="me-auto">Audio Player</strong>
+                    <button id="toast-btn" type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    <audio controls id="audio">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
         </div>
     </section>
 
