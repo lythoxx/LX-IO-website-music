@@ -70,11 +70,12 @@
                 </div>
             </div>
         </div>
-        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="audio-container" class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
             <div id="audio-player" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
                 <div class="toast-header">
                     <img src="/static/assets/cover.png" height="16" width="38" class="rounded me-2" alt="LX-IO">
                     <strong class="me-auto">Audio Player</strong>
+                    <span><i id="dir-btn" class="bi bi-caret-left"></i></span>
                     <button id="toast-btn" type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body">
