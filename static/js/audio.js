@@ -23,6 +23,58 @@ if (isMobile()) {
     dirbtn.style.display = 'none'
 }
 
+if ("mediaSession" in navigator) {
+    navigator.mediaSession.metadata = new MediaMetadata({
+        title: audio.src.split('/').pop().split('.')[0],
+        artist: "LX-IO",
+        artwork: [
+            {
+                src: "/static/assets/profile.png",
+                sizes: "96x96",
+                type: "image/png",
+            },
+            {
+                src: "/static/assets/profile.png",
+                sizes: "128x128",
+                type: "image/png",
+            },
+            {
+                src: "/static/assets/profile.png",
+                sizes: "192x192",
+                type: "image/png",
+            },
+            {
+                src: "/static/assets/profile.png",
+                sizes: "256x256",
+                type: "image/png",
+            },
+            {
+                src: "/static/assets/profile.png",
+                sizes: "384x384",
+                type: "image/png",
+            },
+            {
+                src: "/static/assets/profile.png",
+                sizes: "512x512",
+                type: "image/png",
+            },
+        ],
+    })
+
+    navigator.mediaSession.setActionHandler('play', function() {
+        audio.play();
+    });
+    navigator.mediaSession.setActionHandler('pause', function() {
+        audio.pause();
+    });
+    navigator.mediaSession.setActionHandler('seekbackward', function() {
+        audio.currentTime = Math.max(audio.currentTime - 10, 0);
+    });
+    navigator.mediaSession.setActionHandler('seekforward', function() {
+        audio.currentTime = Math.min(audio.currentTime + 10, audio.duration);
+    });
+}
+
 if (darkness) {
     darkness.addEventListener('click', function () {
         var toast = new bootstrap.Toast(toastLiveExample)
@@ -31,6 +83,7 @@ if (darkness) {
         document.getElementById('audio').src = '/static/assets/audio/Darkness.mp3'
         document.getElementById('audio').play()
         localStorage.setItem('audioSource', '/static/assets/audio/Darkness.mp3')
+        navigator.mediaSession.metadata.album = "Darkness"
     })
 }
 if (everending) {
@@ -41,6 +94,7 @@ if (everending) {
         document.getElementById('audio').src = '/static/assets/audio/Everending Constant.mp3'
         document.getElementById('audio').play()
         localStorage.setItem('audioSource', '/static/assets/audio/Everending Constant.mp3')
+        navigator.mediaSession.metadata.album = "Ghost Notes"
     })
 }
 if (current) {
@@ -51,6 +105,7 @@ if (current) {
         document.getElementById('audio').src = '/static/assets/audio/Through The Current.mp3'
         document.getElementById('audio').play()
         localStorage.setItem('audioSource', '/static/assets/audio/Through The Current.mp3')
+        navigator.mediaSession.metadata.album = "Ghost Notes"
     })
 }
 
@@ -113,10 +168,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     audio.addEventListener('play', function() {
         localStorage.setItem('audioPaused', 'false')
+        navigator.mediaSession.playbackState = "playing"
+        navigator.mediaSession.metadata.title = audio.src.split('/').pop().split('.')[0]
     })
 
     audio.addEventListener('pause', function() {
         localStorage.setItem('audioPaused', 'true')
+        navigator.mediaSession.playbackState = "paused"
     })
 
     audio.addEventListener('ended', function() {
@@ -124,6 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
             audio.currentTime = 0
             audio.play()
         }
+        navigator.mediaSession.playbackState = "none"
     })
 })
 
@@ -207,56 +266,4 @@ if (rwbtn) {
         rwbtn.classList.remove('bi-rewind-fill')
         rwbtn.classList.add('bi-rewind')
     })
-}
-
-if ("mediaSession" in navigator) {
-    navigator.mediaSession.metadata = new MediaMetadata({
-        title: audio.src.split('/').pop().split('.')[0],
-        artist: "LX-IO",
-        artwork: [
-            {
-                src: "/static/assets/profile.png",
-                sizes: "96x96",
-                type: "image/png",
-            },
-            {
-                src: "/static/assets/profile.png",
-                sizes: "128x128",
-                type: "image/png",
-            },
-            {
-                src: "/static/assets/profile.png",
-                sizes: "192x192",
-                type: "image/png",
-            },
-            {
-                src: "/static/assets/profile.png",
-                sizes: "256x256",
-                type: "image/png",
-            },
-            {
-                src: "/static/assets/profile.png",
-                sizes: "384x384",
-                type: "image/png",
-            },
-            {
-                src: "/static/assets/profile.png",
-                sizes: "512x512",
-                type: "image/png",
-            },
-        ],
-    })
-
-    navigator.mediaSession.setActionHandler('play', function() {
-        audio.play();
-    });
-    navigator.mediaSession.setActionHandler('pause', function() {
-        audio.pause();
-    });
-    navigator.mediaSession.setActionHandler('seekbackward', function() {
-        audio.currentTime = Math.max(audio.currentTime - 10, 0);
-    });
-    navigator.mediaSession.setActionHandler('seekforward', function() {
-        audio.currentTime = Math.min(audio.currentTime + 10, audio.duration);
-    });
 }
