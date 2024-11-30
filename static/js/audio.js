@@ -34,6 +34,7 @@ function isMobile() {
 
 function updatePositionState() {
     if ('setPositionState' in navigator.mediaSession && audio.readyState > 0) {
+        console.log('Updating position state with data:', audio.currentTime, audio.duration, audio.playbackRate);
         navigator.mediaSession.setPositionState({
             duration: audio.duration,
             playbackRate: audio.playbackRate,
@@ -270,7 +271,7 @@ document.addEventListener('DOMContentLoaded', function() {
     audio.addEventListener('loadedmetadata', updatePositionState);
     
     // And when the time updates
-    audio.addEventListener('timeupdate', updatePositionState);
+    // audio.addEventListener('timeupdate', updatePositionState);
 
     audio.addEventListener('play', function() {
         localStorage.setItem('audioPaused', 'false')
