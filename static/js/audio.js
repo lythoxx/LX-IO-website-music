@@ -117,6 +117,9 @@ if ("mediaSession" in navigator) {
             navigator.mediaSession.metadata.title = albums[album][0]
         }
     });
+    navigator.mediaSession.setActionHandler('seekto', (details) => {
+        audio.currentTime = details.seekTime;
+    });
 }
 
 if (darkness) {
