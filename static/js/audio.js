@@ -32,6 +32,16 @@ function isMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 }
 
+function updatePositionState() {
+    if ('setPositionState' in navigator.mediaSession) {
+        navigator.mediaSession.setPositionState({
+            duration: audio.duration,
+            playbackRate: audio.playbackRate,
+            position: audio.currentTime
+        });
+    }
+}
+
 if (isMobile()) {
     dirbtn.style.display = 'none'
 }
@@ -252,16 +262,15 @@ document.addEventListener('DOMContentLoaded', function() {
         repbtn.classList.remove('bi-repeat-1')
         repbtn.classList.add('bi-repeat')
     }
-
-    // Save audio state to localStorage
-    audio.addEventListener('timeupdate', function() {
-        localStorage.setItem('audioCurrentTime', audio.currentTime)
-        navigator.mediaSession.setPositionState({
-            duration: audio.duration,
-            playbackRate: 1.0,
-            position: audio.currentTime
-        })
-    })
+    
+    // Call updatePositionState at regular intervals
+    setInterval(updatePositionState, 1000); // Update every second
+    
+    // Also call updatePositionState when the audio metadata is loaded
+    audio.addEventListener('loadedmetadata', updatePositionState);
+    
+    // And when the time updates
+    audio.addEventListener('timeupdate', updatePositionState);
 
     audio.addEventListener('play', function() {
         localStorage.setItem('audioPaused', 'false')
