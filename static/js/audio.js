@@ -38,8 +38,8 @@ if (isMobile()) {
 
 if ("mediaSession" in navigator) {
     navigator.mediaSession.metadata = new MediaMetadata({
-        title: localStorage.getItem('audioSource').split('/').pop().split('.')[0].replace(/%20/g, ' ') || "",
-        album: localStorage.getItem('audioAlbum') || "",
+        title: "",
+        album: "",
         artist: "LX-IO",
         artwork: [
             {
@@ -223,6 +223,8 @@ document.addEventListener('DOMContentLoaded', function() {
         toast.show()
         audio.src = localStorage.getItem('audioSource')
         audio.volume = audioVolume
+        navigator.mediaSession.metadata.album = localStorage.getItem('audioAlbum')
+        navigator.mediaSession.metadata.title = audio.src.split('/').pop().split('.')[0].replace(/%20/g, ' ')
         audioDescription.textContent = `${navigator.mediaSession.metadata.album} • ${navigator.mediaSession.metadata.artist}`
         audioTitle.textContent = navigator.mediaSession.metadata.title
         audio.play()
