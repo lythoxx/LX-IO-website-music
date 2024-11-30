@@ -256,6 +256,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Save audio state to localStorage
     audio.addEventListener('timeupdate', function() {
         localStorage.setItem('audioCurrentTime', audio.currentTime)
+        navigator.mediaSession.setPositionState({
+            duration: audio.duration,
+            playbackRate: 1.0,
+            position: audio.currentTime
+        })
     })
 
     audio.addEventListener('play', function() {
