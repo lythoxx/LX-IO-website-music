@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LX-IO | Ghost Notes</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://kit.fontawesome.com/cb172610ff.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/cover.css">
+    <link rel="icon" href="/static/assets/profile.png">
+    <link rel="stylesheet" href="/static/css/lightmode.css">
+    <script src="/static/js/lightmode.js" defer></script>
+    <script src="/static/js/audio.js" defer></script>
+    <script src="/static/js/dropdown.js" defer></script>
+</head>
+<body class="d-flex h-100 text-center text-white bg-dark">
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <a href="/home.html" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none navbar-brand">
+                <img class="logoCustom" src="/static/assets/vector/default-monochrome-white.svg"
+                alt="LX-IO Logo" class="d-inline-block align-text-top">
+                <!-- <span class="fs-4">Simple header</span> -->
+            </a>
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a class="nav-link hometab" href="/home.html">Home</a></li>
+                <li class="nav-item"><a href="/about.html" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="https://lxio.dev" class="nav-link">Software</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle activeCustom" data-bs-toggle="dropdown" aria-expanded="false">
+                        Collections
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-dark border-0 pt-0 mx-0 rounded-3 shadow overflow-hidden" style="width: 280px;">
+                        <form class="p-2 mb-2 bg-dark border-bottom border-dark search-form">
+                            <input type="search" class="form-control form-control-dark search-control" autocomplete="false" placeholder="Type to filter...">
+                        </form>
+                        <ul class="list-unstyled mb-0">
+                            <li class="dropdown-list-item">
+                                <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="/collections/ghostnotes.html">
+                                    <i class="bi bi-music-note-beamed"></i>
+                                    Ghost Notes
+                                </a>
+                            </li>
+                            <li class="dropdown-list-item">
+                                <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="/collections/darkness.html">
+                                    <i class="bi bi-music-note-beamed"></i>
+                                    Darkness
+                                </a>
+                            </li>
+                            <li class="dropdown-list-item">
+                                <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="/collections/endlessnight.html">
+                                    <i class="bi bi-music-note-beamed"></i>
+                                    Endless Night
+                                </a>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="/projects/all.html">
+                                    <i class="bi bi-asterisk"></i>
+                                    All Collections
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </header>
+    </div>
+
+    <!-- Modal for cookies -->
+    <div class="modal fade" id="cookieModal" tabindex="-1" aria-labelledby="cookieModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cookieModalLabel">Cookie Notice</h5>
+                </div>
+                <div class="modal-body">
+                    This website uses cookies to ensure you get the best experience on our website. We do not collect any personal data. Neither do we use cookies for tracking purposes or advertisements. Cookies are used to save your preferences and settings. By clicking "Ok" you agree to the use of cookies.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="setCookie('cookieconsent', 'accepted', 30)">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN -->
+    <section id="archivoNarrow">
+        <div class="container px-4 py-5" id="custom-cards">
+            <h2><u id="album">Ghost Notes</u></h2>
+            <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+                <div class="col">
+                    <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url(''); background-size: cover; background-position: center; background-repeat: no-repeat;">
+                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold user-select-none">Everending Constant</h2>
+                            <p class="card-text user-select-none">Everending Constant is a metal piece which is centered around building tension and fast paced drums.</p>
+                            <p class="card-text user-select-none">LISTEN TO THE DEMO:</p>
+                            <button id="toast-btn-everending" class="btn btn-lg btn-secondary fw-bold">Listen</button>
+                            <ul class="d-flex list-unstyled mt-auto">
+                                <li class="me-auto">
+                                    <a href="/about.html" class="no-underline"><img src="/static/assets/hoppou_bg.png" alt="lythox" width="32" height="32" class="rounded-circle border border-white card-icon"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url(''); background-size: cover; background-position: center; background-repeat: no-repeat;">
+                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold user-select-none">Through The Current</h2>
+                            <p class="card-text user-select-none">Through The Current is a metal piece, based on a steady bass line where the guitar drives the piece.</p>
+                            <p class="card-text user-select-none">LISTEN TO THE DEMO:</p>
+                            <button id="toast-btn-current" class="btn btn-lg btn-secondary fw-bold">Listen</button>
+                            <ul class="d-flex list-unstyled mt-auto">
+                                <li class="me-auto">
+                                    <a href="/about.html" class="no-underline"><img src="/static/assets/hoppou_bg.png" alt="lythox" width="32" height="32" class="rounded-circle border border-white card-icon"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <!-- <a href="/collections/all.html" class="btn btn-lg btn-secondary fw-bold">View all Collections</a> -->
+        </div>
+        <div id="audio-container" class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="audio-player" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+                <div class="toast-header">
+                    <img src="/static/assets/cover.png" height="16" width="38" class="rounded me-2" alt="LX-IO">
+                    <strong class="me-auto">Audio Player</strong>
+                    <div class="controls">
+                        <span><i id="back-btn" class="bi bi-skip-backward"></i></span>
+                        <span><i id="rew-btn" class="bi bi-rewind"></i></span>
+                        <span><i id="rep-btn" class="bi bi-repeat"></i></span>
+                        <span><i id="ff-btn" class="bi bi-fast-forward"></i></span>
+                        <span><i id="next-btn" class="bi bi-skip-forward"></i></span>
+                    </div>
+                    <span><i id="dir-btn" class="bi bi-caret-left"></i></span>
+                    <button id="toast-btn" type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    <p id="audio-title" class="user-select-none"></p>
+                    <p id="audio-description" class="user-select-none text-muted"></p>
+                    <audio controls id="audio">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!--
+██╗     ██╗  ██╗     ██╗ ██████╗
+██║     ╚██╗██╔╝     ██║██╔═══██╗
+██║      ╚███╔╝█████╗██║██║   ██║
+██║      ██╔██╗╚════╝██║██║   ██║
+███████╗██╔╝ ██╗     ██║╚██████╔╝
+╚══════╝╚═╝  ╚═╝     ╚═╝ ╚═════╝
+-->
+    <div class="container" id="footer">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-4 d-flex align-items-center">
+                <span class="text-muted user-select-none copyright">&copy; LX-IO 2024</span>
+                <i class="bi bi-moon ms-3" id="darkmodetoggle"></i>
+            </div>
+
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3"><a title="YouTube" href="https://www.youtube.com/@lythoxx" class="footerItemsCustom socialLink" target="_blank">
+                    <img id="socialLink" src="/static/assets/youtubeLogo.png">
+                </a></li>
+            </ul>
+        </footer>
+    </div>
+</body>
+</html>

@@ -103,11 +103,11 @@ a:not(.dropdown-toggle, .socialLink, .forum-link):hover:after {
     border-bottom: none;
 }
 
-.copyright {
+.text-muted {
     transition: color 0.2s ease !important;
 }
 
-.copyright:hover {
+.text-muted:hover {
     color: azure !important;
 }
 
@@ -363,10 +363,10 @@ img.page-body {
 
 .controls {
     position: relative;
-    left: -20px;
+    left: -5px;
     border: 1px solid azure;
 }
 
 .controls span {
-    padding: 10px;
+    padding: 5px;
 }

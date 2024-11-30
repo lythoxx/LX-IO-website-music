@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/static/css/lightmode.css">
     <script src="/static/js/lightmode.js" defer></script>
     <script src="/static/js/audio.js" defer></script>
+    <script src="/static/js/dropdown.js" defer></script>
 </head>
 <body class="d-flex h-100 text-center text-white bg-dark">
     <div class="container">
@@ -32,6 +33,42 @@
                 <li class="nav-item"><a class="nav-link hometab activeCustom" href="#">Home</a></li>
                 <li class="nav-item"><a href="/about.html" class="nav-link">About</a></li>
                 <li class="nav-item"><a href="https://lxio.dev" class="nav-link">Software</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Collections
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-dark border-0 pt-0 mx-0 rounded-3 shadow overflow-hidden" style="width: 280px;">
+                        <form class="p-2 mb-2 bg-dark border-bottom border-dark search-form">
+                            <input type="search" class="form-control form-control-dark search-control" autocomplete="false" placeholder="Type to filter...">
+                        </form>
+                        <ul class="list-unstyled mb-0">
+                            <li class="dropdown-list-item">
+                                <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="/collections/ghostnotes.html">
+                                    <i class="bi bi-music-note-beamed"></i>
+                                    Ghost Notes
+                                </a>
+                            </li>
+                            <li class="dropdown-list-item">
+                                <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="/collections/darkness.html">
+                                    <i class="bi bi-music-note-beamed"></i>
+                                    Darkness
+                                </a>
+                            </li>
+                            <li class="dropdown-list-item">
+                                <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="/collections/endlessnight.html">
+                                    <i class="bi bi-music-note-beamed"></i>
+                                    Endless Night
+                                </a>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="/projects/all.html">
+                                    <i class="bi bi-asterisk"></i>
+                                    All Collections
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </header>
     </div>
@@ -131,8 +168,56 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col">
+                    <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url(''); background-size: cover; background-position: center; background-repeat: no-repeat;">
+                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold user-select-none">Endless Night - Main Theme</h2>
+                            <p class="card-text user-select-none">This is the Main Theme for the game <a href="https://lxio.dev/projects/endlessnight.html" class="inline-link">Endless Night</a></p>
+                            <p class="card-text user-select-none">LISTEN TO THE DEMO:</p>
+                            <button id="toast-btn-endless-main-theme" class="btn btn-lg btn-secondary fw-bold">Listen</button>
+                            <ul class="d-flex list-unstyled mt-auto">
+                                <li class="me-auto">
+                                    <a href="/about.html" class="no-underline"><img src="/static/assets/hoppou_bg.png" alt="lythox" width="32" height="32" class="rounded-circle border border-white card-icon"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url(''); background-size: cover; background-position: center; background-repeat: no-repeat;">
+                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold user-select-none">Endless Night - Main Menu</h2>
+                            <p class="card-text user-select-none">This the Main Menu track for the game <a href="https://lxio.dev/projects/endlessnight.html" class="inline-link">Endless Night</a></p>
+                            <p class="card-text user-select-none">LISTEN TO THE DEMO:</p>
+                            <button id="toast-btn-endless-main-menu" class="btn btn-lg btn-secondary fw-bold">Listen</button>
+                            <ul class="d-flex list-unstyled mt-auto">
+                                <li class="me-auto">
+                                    <a href="/about.html" class="no-underline"><img src="/static/assets/hoppou_bg.png" alt="lythox" width="32" height="32" class="rounded-circle border border-white card-icon"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url(''); background-size: cover; background-position: center; background-repeat: no-repeat;">
+                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold user-select-none">Endless Night - Tutorial</h2>
+                            <p class="card-text user-select-none">This the track during the tutorial for the game <a href="https://lxio.dev/projects/endlessnight.html" class="inline-link">Endless Night</a></p>
+                            <p class="card-text user-select-none">LISTEN TO THE DEMO:</p>
+                            <button id="toast-btn-endless-tut" class="btn btn-lg btn-secondary fw-bold">Listen</button>
+                            <ul class="d-flex list-unstyled mt-auto">
+                                <li class="me-auto">
+                                    <a href="/about.html" class="no-underline"><img src="/static/assets/hoppou_bg.png" alt="lythox" width="32" height="32" class="rounded-circle border border-white card-icon"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- <a href="/projects/all.html" class="btn btn-lg btn-secondary fw-bold">View all projects</a> -->
+            <a href="/collections/all.html" class="btn btn-lg btn-secondary fw-bold">View all Collections</a>
         </div>
         <div id="audio-container" class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
             <div id="audio-player" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
@@ -140,14 +225,18 @@
                     <img src="/static/assets/cover.png" height="16" width="38" class="rounded me-2" alt="LX-IO">
                     <strong class="me-auto">Audio Player</strong>
                     <div class="controls">
+                        <span><i id="back-btn" class="bi bi-skip-backward"></i></span>
                         <span><i id="rew-btn" class="bi bi-rewind"></i></span>
                         <span><i id="rep-btn" class="bi bi-repeat"></i></span>
                         <span><i id="ff-btn" class="bi bi-fast-forward"></i></span>
+                        <span><i id="next-btn" class="bi bi-skip-forward"></i></span>
                     </div>
                     <span><i id="dir-btn" class="bi bi-caret-left"></i></span>
                     <button id="toast-btn" type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body">
+                    <p id="audio-title" class="user-select-none"></p>
+                    <p id="audio-description" class="user-select-none text-muted"></p>
                     <audio controls id="audio">
                         Your browser does not support the audio element.
                     </audio>

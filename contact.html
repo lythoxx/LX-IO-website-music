@@ -98,14 +98,18 @@
                     <img src="/static/assets/cover.png" height="16" width="38" class="rounded me-2" alt="LX-IO">
                     <strong class="me-auto">Audio Player</strong>
                     <div class="controls">
+                        <span><i id="back-btn" class="bi bi-skip-backward"></i></span>
                         <span><i id="rew-btn" class="bi bi-rewind"></i></span>
                         <span><i id="rep-btn" class="bi bi-repeat"></i></span>
                         <span><i id="ff-btn" class="bi bi-fast-forward"></i></span>
+                        <span><i id="next-btn" class="bi bi-skip-forward"></i></span>
                     </div>
                     <span><i id="dir-btn" class="bi bi-caret-left"></i></span>
                     <button id="toast-btn" type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body">
+                    <p id="audio-title" class="user-select-none"></p>
+                    <p id="audio-description" class="user-select-none text-muted"></p>
                     <audio controls id="audio">
                         Your browser does not support the audio element.
                     </audio>

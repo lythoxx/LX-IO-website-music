@@ -1,7 +1,12 @@
 // Used for the audio player
+const audioTitle = document.getElementById('audio-title')
+const audioDescription = document.getElementById('audio-description')
 const darkness = document.getElementById('listen-btn-darkness')
 const everending = document.getElementById('toast-btn-everending')
 const current = document.getElementById('toast-btn-current')
+const endlessNightMenu = document.getElementById('toast-btn-endless-main-menu')
+const endlessNightTheme = document.getElementById('toast-btn-endless-main-theme')
+const endlessNightTut = document.getElementById('toast-btn-endless-tut')
 const toastLiveExample = document.getElementById('audio-player')
 const dirbtn = document.getElementById('dir-btn')
 const repbtn = document.getElementById('rep-btn')
@@ -9,10 +14,18 @@ const container = document.getElementById('audio-container')
 const audio = document.getElementById('audio')
 const ffbtn = document.getElementById('ff-btn')
 const rwbtn = document.getElementById('rew-btn')
+const backbtn = document.getElementById('back-btn')
+const nextbtn = document.getElementById('next-btn')
 
 // Player variables
 var repeat = localStorage.getItem('repeat') || false
 var seekVal = 10
+var audioVolume = localStorage.getItem('audioVolume') || 1
+var albums = {
+    "Ghost Notes": ["Everending Constant", "Through The Current"],
+    "Endless Night": ["Endless Night - Main Menu", "Endless Night - Main Theme", "Endless Night - Tutorial"],
+    "Darkness": ["Darkness"]
+}
 
 // Used for the audio player
 function isMobile() {
@@ -25,7 +38,8 @@ if (isMobile()) {
 
 if ("mediaSession" in navigator) {
     navigator.mediaSession.metadata = new MediaMetadata({
-        title: audio.src.split('/').pop().split('.')[0],
+        title: "",
+        album: "",
         artist: "LX-IO",
         artwork: [
             {
@@ -61,17 +75,47 @@ if ("mediaSession" in navigator) {
         ],
     })
 
-    navigator.mediaSession.setActionHandler('play', function() {
+    navigator.mediaSession.setActionHandler("play", () => {
         audio.play();
     });
-    navigator.mediaSession.setActionHandler('pause', function() {
+    navigator.mediaSession.setActionHandler("pause", () => {
         audio.pause();
     });
-    navigator.mediaSession.setActionHandler('seekbackward', function() {
+    navigator.mediaSession.setActionHandler("seekbackward", () => {
         audio.currentTime = Math.max(audio.currentTime - 10, 0);
     });
-    navigator.mediaSession.setActionHandler('seekforward', function() {
+    navigator.mediaSession.setActionHandler("seekforward", () => {
         audio.currentTime = Math.min(audio.currentTime + 10, audio.duration);
+    });
+    navigator.mediaSession.setActionHandler("previoustrack", () => {
+        var album = navigator.mediaSession.metadata.album
+        var song = navigator.mediaSession.metadata.title
+        var index = albums[album].indexOf(song)
+        if (audio.currentTime > 3) {
+            audio.currentTime = 0
+        } else if (index > 0) {
+            document.getElementById('audio').src = '/static/assets/audio/' + albums[album][index - 1] + '.mp3'
+            document.getElementById('audio').play()
+            navigator.mediaSession.metadata.title = albums[album][index - 1]
+        } else {
+            document.getElementById('audio').src = '/static/assets/audio/' + albums[album][albums[album].length - 1] + '.mp3'
+            document.getElementById('audio').play()
+            navigator.mediaSession.metadata.title = albums[album][albums[album].length - 1]
+        }
+    });
+    navigator.mediaSession.setActionHandler("nexttrack", () => {
+        var album = navigator.mediaSession.metadata.album
+        var song = navigator.mediaSession.metadata.title
+        var index = albums[album].indexOf(song)
+        if (index < albums[album].length - 1) {
+            document.getElementById('audio').src = '/static/assets/audio/' + albums[album][index + 1] + '.mp3'
+            document.getElementById('audio').play()
+            navigator.mediaSession.metadata.title = albums[album][index + 1]
+        } else {
+            document.getElementById('audio').src = '/static/assets/audio/' + albums[album][0] + '.mp3'
+            document.getElementById('audio').play()
+            navigator.mediaSession.metadata.title = albums[album][0]
+        }
     });
 }
 
@@ -108,6 +152,39 @@ if (current) {
         navigator.mediaSession.metadata.album = "Ghost Notes"
     })
 }
+if (endlessNightMenu) {
+    endlessNightMenu.addEventListener('click', function () {
+        var toast = new bootstrap.Toast(toastLiveExample)
+
+        toast.show()
+        document.getElementById('audio').src = '/static/assets/audio/Endless Night - Main Menu.mp3'
+        document.getElementById('audio').play()
+        localStorage.setItem('audioSource', '/static/assets/audio/Endless Night - Main Menu.mp3')
+        navigator.mediaSession.metadata.album = "Endless Night"
+    })
+}
+if (endlessNightTheme) {
+    endlessNightTheme.addEventListener('click', function () {
+        var toast = new bootstrap.Toast(toastLiveExample)
+
+        toast.show()
+        document.getElementById('audio').src = '/static/assets/audio/Endless Night - Main Theme.mp3'
+        document.getElementById('audio').play()
+        localStorage.setItem('audioSource', '/static/assets/audio/Endless Night - Main Theme.mp3')
+        navigator.mediaSession.metadata.album = "Endless Night"
+    })
+}
+if (endlessNightTut) {
+    endlessNightTut.addEventListener('click', function () {
+        var toast = new bootstrap.Toast(toastLiveExample)
+
+        toast.show()
+        document.getElementById('audio').src = '/static/assets/audio/Endless Night - Tutorial.mp3'
+        document.getElementById('audio').play()
+        localStorage.setItem('audioSource', '/static/assets/audio/Endless Night - Tutorial.mp3')
+        navigator.mediaSession.metadata.album = "Endless Night"
+    })
+}
 
 var toastClose = document.getElementById('toast-btn')
 if (toastClose) {
@@ -120,6 +197,7 @@ if (toastClose) {
         localStorage.removeItem('audioPaused')
         localStorage.removeItem('audioSource')
         localStorage.removeItem('repeat')
+        localStorage.removeItem('audioVolume')
         // remove src
         document.getElementById('audio').src = ''
         // restore repeat button
@@ -138,6 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var toast = new bootstrap.Toast(toastLiveExample)
         toast.show()
         audio.src = localStorage.getItem('audioSource')
+        audio.volume = audioVolume
         audio.play()
     }
     if (localStorage.getItem('audioPosition') === 'start') {
@@ -169,7 +248,9 @@ document.addEventListener('DOMContentLoaded', function() {
     audio.addEventListener('play', function() {
         localStorage.setItem('audioPaused', 'false')
         navigator.mediaSession.playbackState = "playing"
-        navigator.mediaSession.metadata.title = audio.src.split('/').pop().split('.')[0]
+        navigator.mediaSession.metadata.title = audio.src.split('/').pop().split('.')[0].replace(/%20/g, ' ')
+        audioTitle.textContent = navigator.mediaSession.metadata.title
+        audioDescription.textContent = `${navigator.mediaSession.metadata.album} • ${navigator.mediaSession.metadata.artist}`
     })
 
     audio.addEventListener('pause', function() {
@@ -178,11 +259,27 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
     audio.addEventListener('ended', function() {
+        var album = navigator.mediaSession.metadata.album
+        console.log(album)
+        console.log(albums[album])
+        var albumLen = albums[album].length
+        var title = navigator.mediaSession.metadata.title
+        var index = albums[album].indexOf(title)
         if (repeat) {
             audio.currentTime = 0
             audio.play()
+        } else if (index < albumLen - 1) {
+            audio.src = '/static/assets/audio/' + albums[album][index + 1] + '.mp3'
+            audio.play()
+        } else {
+            navigator.mediaSession.playbackState = "none"
         }
-        navigator.mediaSession.playbackState = "none"
+    })
+
+    audio.addEventListener('volumechange', function() {
+        // Save volume state to localStorage
+        localStorage.setItem('audioVolume', audio.volume)
+        audioVolume = audio.volume
     })
 })
 
@@ -265,5 +362,61 @@ if (rwbtn) {
     rwbtn.addEventListener('mouseleave', function() {
         rwbtn.classList.remove('bi-rewind-fill')
         rwbtn.classList.add('bi-rewind')
+    })
+}
+
+if (backbtn) {
+    backbtn.addEventListener('click', function() {
+        var album = navigator.mediaSession.metadata.album
+        var song = navigator.mediaSession.metadata.title
+        var index = albums[album].indexOf(song)
+        if (audio.currentTime > 3) {
+            audio.currentTime = 0
+        } else if (index > 0) {
+            document.getElementById('audio').src = '/static/assets/audio/' + albums[album][index - 1] + '.mp3'
+            document.getElementById('audio').play()
+            navigator.mediaSession.metadata.title = albums[album][index - 1]
+        } else {
+            document.getElementById('audio').src = '/static/assets/audio/' + albums[album][albums[album].length - 1] + '.mp3'
+            document.getElementById('audio').play()
+            navigator.mediaSession.metadata.title = albums[album][albums[album].length - 1]
+        }
+    })
+
+    backbtn.addEventListener('mouseenter', function() {
+        backbtn.classList.remove('bi-skip-backward')
+        backbtn.classList.add('bi-skip-backward-fill')
+    })
+    backbtn.addEventListener('mouseleave', function() {
+        backbtn.classList.remove('bi-skip-backward-fill')
+        backbtn.classList.add('bi-skip-backward')
+    })
+}
+
+if (nextbtn) {
+    nextbtn.addEventListener('click', function() {
+        var album = navigator.mediaSession.metadata.album
+        var song = navigator.mediaSession.metadata.title
+        var index = albums[album].indexOf(song)
+        if (audio.currentTime > 3) {
+            audio.currentTime = 0
+        } else if (index > 0) {
+        document.getElementById('audio').src = '/static/assets/audio/' + albums[album][index - 1] + '.mp3'
+            document.getElementById('audio').play()
+            navigator.mediaSession.metadata.title = albums[album][index - 1]
+        } else {
+            document.getElementById('audio').src = '/static/assets/audio/' + albums[album][albums[album].length - 1] + '.mp3'
+            document.getElementById('audio').play()
+            navigator.mediaSession.metadata.title = albums[album][albums[album].length - 1]
+        }
+    })
+
+    nextbtn.addEventListener('mouseenter', function() {
+        nextbtn.classList.remove('bi-skip-forward')
+        nextbtn.classList.add('bi-skip-forward-fill')
+    })
+    nextbtn.addEventListener('mouseleave', function() {
+        nextbtn.classList.remove('bi-skip-forward-fill')
+        nextbtn.classList.add('bi-skip-forward')
     })
 }
