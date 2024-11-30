@@ -38,8 +38,8 @@ if (isMobile()) {
 
 if ("mediaSession" in navigator) {
     navigator.mediaSession.metadata = new MediaMetadata({
-        title: "",
-        album: "",
+        title: localStorage.getItem('audioSource').split('/').pop().split('.')[0].replace(/%20/g, ' ') || "",
+        album: localStorage.getItem('audioAlbum') || "",
         artist: "LX-IO",
         artwork: [
             {
@@ -128,6 +128,7 @@ if (darkness) {
         document.getElementById('audio').play()
         localStorage.setItem('audioSource', '/static/assets/audio/Darkness.mp3')
         navigator.mediaSession.metadata.album = "Darkness"
+        localStorage.setItem('audioAlbum', 'Darkness')
     })
 }
 if (everending) {
@@ -139,6 +140,7 @@ if (everending) {
         document.getElementById('audio').play()
         localStorage.setItem('audioSource', '/static/assets/audio/Everending Constant.mp3')
         navigator.mediaSession.metadata.album = "Ghost Notes"
+        localStorage.setItem('audioAlbum', 'Ghost Notes')
     })
 }
 if (current) {
@@ -150,6 +152,7 @@ if (current) {
         document.getElementById('audio').play()
         localStorage.setItem('audioSource', '/static/assets/audio/Through The Current.mp3')
         navigator.mediaSession.metadata.album = "Ghost Notes"
+        localStorage.setItem('audioAlbum', 'Ghost Notes')
     })
 }
 if (endlessNightMenu) {
@@ -161,6 +164,7 @@ if (endlessNightMenu) {
         document.getElementById('audio').play()
         localStorage.setItem('audioSource', '/static/assets/audio/Endless Night - Main Menu.mp3')
         navigator.mediaSession.metadata.album = "Endless Night"
+        localStorage.setItem('audioAlbum', 'Endless Night')
     })
 }
 if (endlessNightTheme) {
@@ -172,6 +176,7 @@ if (endlessNightTheme) {
         document.getElementById('audio').play()
         localStorage.setItem('audioSource', '/static/assets/audio/Endless Night - Main Theme.mp3')
         navigator.mediaSession.metadata.album = "Endless Night"
+        localStorage.setItem('audioAlbum', 'Endless Night')
     })
 }
 if (endlessNightTut) {
@@ -183,6 +188,7 @@ if (endlessNightTut) {
         document.getElementById('audio').play()
         localStorage.setItem('audioSource', '/static/assets/audio/Endless Night - Tutorial.mp3')
         navigator.mediaSession.metadata.album = "Endless Night"
+        localStorage.setItem('audioAlbum', 'Endless Night')
     })
 }
 
@@ -217,6 +223,8 @@ document.addEventListener('DOMContentLoaded', function() {
         toast.show()
         audio.src = localStorage.getItem('audioSource')
         audio.volume = audioVolume
+        audioDescription.textContent = `${navigator.mediaSession.metadata.album} • ${navigator.mediaSession.metadata.artist}`
+        audioTitle.textContent = navigator.mediaSession.metadata.title
         audio.play()
     }
     if (localStorage.getItem('audioPosition') === 'start') {
