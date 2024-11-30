@@ -33,7 +33,7 @@ function isMobile() {
 }
 
 function updatePositionState() {
-    if ('setPositionState' in navigator.mediaSession) {
+    if ('setPositionState' in navigator.mediaSession && audio.readyState > 0) {
         navigator.mediaSession.setPositionState({
             duration: audio.duration,
             playbackRate: audio.playbackRate,
