@@ -1,4 +1,4 @@
-// Used for the audio player
+//* Used for the audio player
 const audioTitle = document.getElementById('audio-title')
 const audioDescription = document.getElementById('audio-description')
 const darkness = document.getElementById('listen-btn-darkness')
@@ -17,7 +17,7 @@ const rwbtn = document.getElementById('rew-btn')
 const backbtn = document.getElementById('back-btn')
 const nextbtn = document.getElementById('next-btn')
 
-// Player variables
+//* Player variables
 var repeat = localStorage.getItem('repeat') || false
 var seekVal = 10
 var audioVolume = localStorage.getItem('audioVolume') || 1
@@ -27,101 +27,105 @@ var albums = {
     "Darkness": ["Darkness"]
 }
 
+//* Functions for the player
+
 // Used for the audio player
 function isMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 }
 
+function updatePositionState() {
+    if ('setPositionState' in navigator.mediaSession) {
+        navigator.mediaSession.setPositionState({
+            duration: audio.duration,
+            playbackRate: audio.playbackRate,
+            position: audio.currentTime
+        })
+    } else {
+        throw new Error('setPositionState is not supported')
+    }
+}
+
+// only show the button if it's not a mobile device
 if (isMobile()) {
     dirbtn.style.display = 'none'
 }
 
+//* SETUP MEDIA SESSION API
 if ("mediaSession" in navigator) {
     navigator.mediaSession.metadata = new MediaMetadata({
         title: "",
         album: "",
         artist: "LX-IO",
         artwork: [
-            {
-                src: "/static/assets/profile.png",
-                sizes: "96x96",
-                type: "image/png",
-            },
-            {
-                src: "/static/assets/profile.png",
-                sizes: "128x128",
-                type: "image/png",
-            },
-            {
-                src: "/static/assets/profile.png",
-                sizes: "192x192",
-                type: "image/png",
-            },
-            {
-                src: "/static/assets/profile.png",
-                sizes: "256x256",
-                type: "image/png",
-            },
-            {
-                src: "/static/assets/profile.png",
-                sizes: "384x384",
-                type: "image/png",
-            },
-            {
-                src: "/static/assets/profile.png",
-                sizes: "512x512",
-                type: "image/png",
-            },
+            {src: "/static/assets/profile.png", sizes: "96x96", type: "image/png"},
+            {src: "/static/assets/profile.png", sizes: "128x128", type: "image/png"},
+            {src: "/static/assets/profile.png", sizes: "192x192", type: "image/png"},
+            {src: "/static/assets/profile.png", sizes: "256x256", type: "image/png"},
+            {src: "/static/assets/profile.png", sizes: "384x384", type: "image/png"},
+            {src: "/static/assets/profile.png", sizes: "512x512", type: "image/png"},
         ],
     })
 
-    navigator.mediaSession.setActionHandler("play", () => {
-        audio.play();
-    });
-    navigator.mediaSession.setActionHandler("pause", () => {
-        audio.pause();
-    });
-    navigator.mediaSession.setActionHandler("seekbackward", () => {
-        audio.currentTime = Math.max(audio.currentTime - 10, 0);
-    });
-    navigator.mediaSession.setActionHandler("seekforward", () => {
-        audio.currentTime = Math.min(audio.currentTime + 10, audio.duration);
-    });
-    navigator.mediaSession.setActionHandler("previoustrack", () => {
-        var album = navigator.mediaSession.metadata.album
-        var song = navigator.mediaSession.metadata.title
-        var index = albums[album].indexOf(song)
-        if (audio.currentTime > 3) {
-            audio.currentTime = 0
-        } else if (index > 0) {
-            document.getElementById('audio').src = '/static/assets/audio/' + albums[album][index - 1] + '.mp3'
-            document.getElementById('audio').play()
-            navigator.mediaSession.metadata.title = albums[album][index - 1]
-        } else {
-            document.getElementById('audio').src = '/static/assets/audio/' + albums[album][albums[album].length - 1] + '.mp3'
-            document.getElementById('audio').play()
-            navigator.mediaSession.metadata.title = albums[album][albums[album].length - 1]
+    const actionHandlers = [
+        ["play", () => {audio.play(); updatePositionState()}],
+        ["pause", () => {audio.pause()}],
+        ["seekbackward", (details) => {
+            var change = details.seekOffset || seekVal
+            audio.currentTime = Math.max(audio.currentTime - change, 0)
+            updatePositionState()
+        }],
+        ["seekforward", (details) => {
+            var change = details.seekOffset || seekVal
+            audio.currentTime = Math.min(audio.currentTime + change, audio.duration)
+            updatePositionState()
+        }],
+        ["previoustrack", () => {
+            var album = navigator.mediaSession.metadata.album
+            var song = navigator.mediaSession.metadata.title
+            var index = albums[album].indexOf(song)
+            if (audio.currentTime > 3) {
+                audio.currentTime = 0
+            } else if (index > 0) {
+                document.getElementById('audio').src = '/static/assets/audio/' + albums[album][index - 1] + '.mp3'
+                document.getElementById('audio').play()
+                navigator.mediaSession.metadata.title = albums[album][index - 1]
+            } else {
+                document.getElementById('audio').src = '/static/assets/audio/' + albums[album][albums[album].length - 1] + '.mp3'
+                document.getElementById('audio').play()
+                navigator.mediaSession.metadata.title = albums[album][albums[album].length - 1]
+            }
+        }],
+        ["nexttrack", () => {
+            var album = navigator.mediaSession.metadata.album
+            var song = navigator.mediaSession.metadata.title
+            var index = albums[album].indexOf(song)
+            if (index < albums[album].length - 1) {
+                document.getElementById('audio').src = '/static/assets/audio/' + albums[album][index + 1] + '.mp3'
+                document.getElementById('audio').play()
+                navigator.mediaSession.metadata.title = albums[album][index + 1]
+            } else {
+                document.getElementById('audio').src = '/static/assets/audio/' + albums[album][0] + '.mp3'
+                document.getElementById('audio').play()
+                navigator.mediaSession.metadata.title = albums[album][0]
+            }
+        }],
+        ["seekto", (details) => {
+            audio.currentTime = details.seekTime
+            updatePositionState()
+        }]
+    ]
+
+    for (const [action, handler] of actionHandlers) {
+        try {
+            navigator.mediaSession.setActionHandler(action, handler);
+        } catch (error) {
+            console.log(`The media session action "${action}" is not supported yet.`);
         }
-    });
-    navigator.mediaSession.setActionHandler("nexttrack", () => {
-        var album = navigator.mediaSession.metadata.album
-        var song = navigator.mediaSession.metadata.title
-        var index = albums[album].indexOf(song)
-        if (index < albums[album].length - 1) {
-            document.getElementById('audio').src = '/static/assets/audio/' + albums[album][index + 1] + '.mp3'
-            document.getElementById('audio').play()
-            navigator.mediaSession.metadata.title = albums[album][index + 1]
-        } else {
-            document.getElementById('audio').src = '/static/assets/audio/' + albums[album][0] + '.mp3'
-            document.getElementById('audio').play()
-            navigator.mediaSession.metadata.title = albums[album][0]
-        }
-    });
-    navigator.mediaSession.setActionHandler('seekto', (details) => {
-        audio.currentTime = details.seekTime;
-    });
+    }
 }
 
+//* Event listeners for the player
 if (darkness) {
     darkness.addEventListener('click', function () {
         var toast = new bootstrap.Toast(toastLiveExample)
@@ -216,6 +220,7 @@ if (toastClose) {
     })
 }
 
+//* Event listeners for the player and local storage
 document.addEventListener('DOMContentLoaded', function() {
     // Load audio state from localStorage
     if (localStorage.getItem('audioCurrentTime')) {
@@ -231,6 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
         audioDescription.textContent = `${navigator.mediaSession.metadata.album} • ${navigator.mediaSession.metadata.artist}`
         audioTitle.textContent = navigator.mediaSession.metadata.title
         audio.play()
+        updatePositionState()
     }
     if (localStorage.getItem('audioPosition') === 'start') {
         container.classList.remove('end-0')
@@ -276,9 +282,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (repeat) {
             audio.currentTime = 0
             audio.play()
+            updatePositionState()
         } else if (index < albumLen - 1) {
             audio.src = '/static/assets/audio/' + albums[album][index + 1] + '.mp3'
             audio.play()
+            updatePositionState()
         } else {
             navigator.mediaSession.playbackState = "none"
         }
@@ -293,9 +301,15 @@ document.addEventListener('DOMContentLoaded', function() {
     audio.addEventListener('timeupdate', function() {
         // Save current time state to localStorage
         localStorage.setItem('audioCurrentTime', audio.currentTime)
+        updatePositionState()
+    })
+
+    audio.addEventListener('ratechange', function() {
+        updatePositionState()
     })
 })
 
+//* Event listeners for the player buttons
 if (dirbtn) {
     dirbtn.addEventListener('mouseenter', function() {
         if (dirbtn.classList.contains('bi-caret-left')) {

@@ -26,7 +26,7 @@ document.getElementsByClassName('search-form')[0].addEventListener('submit', (ev
 
 function search() {
     const content = inputField.value;
-    var redirect = new URL('/projects/search.html', window.location.origin);
+    var redirect = new URL('/collections/search.html', window.location.origin);
     redirect.searchParams.append('content', content);
     window.location.href = redirect.href;
 }
