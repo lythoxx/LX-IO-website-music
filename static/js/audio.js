@@ -235,6 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
         navigator.mediaSession.metadata.title = audio.src.split('/').pop().split('.')[0].replace(/%20/g, ' ')
         audioDescription.textContent = `${navigator.mediaSession.metadata.album} • ${navigator.mediaSession.metadata.artist}`
         audioTitle.textContent = navigator.mediaSession.metadata.title
+        audio.playbackRate = localStorage.getItem('audioRate') || 1
         audio.play()
         updatePositionState()
     }
@@ -305,6 +306,7 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
     audio.addEventListener('ratechange', function() {
+        localStorage.setItem('audioRate', audio.playbackRate)
         updatePositionState()
     })
 })
