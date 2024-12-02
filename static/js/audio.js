@@ -289,6 +289,11 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('audioVolume', audio.volume)
         audioVolume = audio.volume
     })
+
+    audio.addEventListener('timeupdate', function() {
+        // Save current time state to localStorage
+        localStorage.setItem('audioCurrentTime', audio.currentTime)
+    })
 })
 
 if (dirbtn) {
