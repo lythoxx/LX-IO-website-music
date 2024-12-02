@@ -23,7 +23,7 @@ var seekVal = 10
 var audioVolume = localStorage.getItem('audioVolume') || 1
 var albums = {
     "Ghost Notes": ["Everending Constant", "Through The Current"],
-    "Endless Night": ["Endless Night - Main Menu", "Endless Night - Main Theme", "Endless Night - Tutorial"],
+    "Endless Night": ["Endless Night - Main Theme", "Endless Night - Main Menu", "Endless Night - Tutorial"],
     "Darkness": ["Darkness"]
 }
 
@@ -427,16 +427,14 @@ if (nextbtn) {
         var album = navigator.mediaSession.metadata.album
         var song = navigator.mediaSession.metadata.title
         var index = albums[album].indexOf(song)
-        if (audio.currentTime > 3) {
-            audio.currentTime = 0
-        } else if (index > 0) {
-        document.getElementById('audio').src = '/static/assets/audio/' + albums[album][index - 1] + '.mp3'
+        if (index < albums[album].length - 1) {
+            document.getElementById('audio').src = '/static/assets/audio/' + albums[album][index + 1] + '.mp3'
             document.getElementById('audio').play()
-            navigator.mediaSession.metadata.title = albums[album][index - 1]
+            navigator.mediaSession.metadata.title = albums[album][index + 1]
         } else {
-            document.getElementById('audio').src = '/static/assets/audio/' + albums[album][albums[album].length - 1] + '.mp3'
+            document.getElementById('audio').src = '/static/assets/audio/' + albums[album][0] + '.mp3'
             document.getElementById('audio').play()
-            navigator.mediaSession.metadata.title = albums[album][albums[album].length - 1]
+            navigator.mediaSession.metadata.title = albums[album][0]
         }
     })
 
