@@ -22,13 +22,16 @@
 </head>
 <body class="d-flex h-100 text-center text-white bg-dark">
     <div class="container">
-        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-            <a href="/home.html" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none navbar-brand">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none navbar-brand">
                 <img class="logoCustom" src="/static/assets/vector/default-monochrome-white.svg"
-                alt="LX-IO Logo" class="d-inline-block align-text-top">
+                    alt="LX-IO Logo" class="d-inline-block align-text-top">
                 <!-- <span class="fs-4">Simple header</span> -->
             </a>
-            <ul class="nav nav-pills">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <ul class="nav nav-pills collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <li class="nav-item"><a class="nav-link hometab" href="/home.html">Home</a></li>
                 <li class="nav-item"><a href="/about.html" class="nav-link">About</a></li>
                 <li class="nav-item"><a href="https://lxio.dev" class="nav-link">Software</a></li>
@@ -160,5 +163,16 @@
             </ul>
         </footer>
     </div>
+    <script>
+        window.addEventListener('resize', function() {
+            if (window.innerWidth < 992) {
+                document.getElementById('navbarSupportedContent').classList.remove('justify-content-end');
+                document.getElementById('navbarSupportedContent').classList.add('justify-content-center');
+            } else {
+                document.getElementById('navbarSupportedContent').classList.remove('justify-content-center');
+                document.getElementById('navbarSupportedContent').classList.add('justify-content-end');
+            }
+        });
+    </script>
 </body>
 </html>
