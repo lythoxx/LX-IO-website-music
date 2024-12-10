@@ -190,6 +190,13 @@
     </div>
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {
+            if (window.innerWidth < 992) {
+                document.getElementById('navbarSupportedContent').classList.remove('justify-content-end');
+                document.getElementById('navbarSupportedContent').classList.add('justify-content-center');
+            } else {
+                document.getElementById('navbarSupportedContent').classList.remove('justify-content-center');
+                document.getElementById('navbarSupportedContent').classList.add('justify-content-end');
+            }
             // Get the content from the URL
             var url = new URL(window.location.href);
             const resultHeader = document.getElementById('result-header')

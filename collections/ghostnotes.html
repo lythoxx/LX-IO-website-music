@@ -181,6 +181,15 @@
         </footer>
     </div>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.innerWidth < 992) {
+                document.getElementById('navbarSupportedContent').classList.remove('justify-content-end');
+                document.getElementById('navbarSupportedContent').classList.add('justify-content-center');
+            } else {
+                document.getElementById('navbarSupportedContent').classList.remove('justify-content-center');
+                document.getElementById('navbarSupportedContent').classList.add('justify-content-end');
+            }
+        });
         window.addEventListener('resize', function() {
             if (window.innerWidth < 992) {
                 document.getElementById('navbarSupportedContent').classList.remove('justify-content-end');
